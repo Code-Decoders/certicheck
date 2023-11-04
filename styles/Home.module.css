@@ -1,0 +1,33 @@
+.container {
+    padding: 30px 50px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+}
+
+.pdfViewer {
+    height: 600px;
+    width: calc(100% - 100px);
+}
+
+.header {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0px;
+}

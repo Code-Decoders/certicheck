@@ -15,6 +15,9 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
   Pagination,
   Table,
   TableBody,
@@ -25,7 +28,10 @@ import {
   User,
 } from "@nextui-org/react";
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+import styles from '@/styles/Home.module.css'
+import { useRouter } from "next/router";
+
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "type", "email", "status", "actions"];
 
 const statusColorMap = {
   Verified: "success",
@@ -39,10 +45,12 @@ export default function IndexPage() {
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "id",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
+  const [viewOpen, setViewOpen] = React.useState(false)
+  const router = useRouter()
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -92,16 +100,6 @@ export default function IndexPage() {
     const cellValue = user[columnKey];
 
     switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{radius: "lg", src: user.avatar}}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
       case "role":
         return (
           <div className="flex flex-col">
@@ -125,9 +123,9 @@ export default function IndexPage() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                {/* <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem> */}
+                <DropdownItem onClick={() => setViewOpen(true)}>View</DropdownItem>
+                <DropdownItem>Verify</DropdownItem>
+                {/* <DropdownItem>Delete</DropdownItem> */}
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -163,10 +161,10 @@ export default function IndexPage() {
     }
   }, []);
 
-  const onClear = React.useCallback(()=>{
+  const onClear = React.useCallback(() => {
     setFilterValue("")
     setPage(1)
-  },[])
+  }, [])
 
   const topContent = React.useMemo(() => {
     return (
@@ -197,7 +195,7 @@ export default function IndexPage() {
                 onSelectionChange={setStatusFilter}
               >
                 {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
+                  <DropdownItem key={status.name} className="capitalize">
                     {status.name}
                   </DropdownItem>
                 ))}
@@ -224,13 +222,13 @@ export default function IndexPage() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+            <Button color="primary" onClick={() => {router.push("/create")}} endContent={<PlusIcon />}>
               Add New
             </Button>
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {users.length} Cerificate</span>
+          <span className="text-default-400 text-small">Total {users.length} Cerificates</span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
@@ -259,9 +257,6 @@ export default function IndexPage() {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
         <Pagination
           isCompact
@@ -287,37 +282,50 @@ export default function IndexPage() {
   return (
     <DefaultLayout>
       <Table
-      aria-label="Example table with custom cells, pagination and sorting"
-      isHeaderSticky
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
-      onSortChange={setSortDescriptor}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        aria-label="Example table with custom cells, pagination and sorting"
+        isHeaderSticky
+        bottomContent={bottomContent}
+        bottomContentPlacement="outside"
+        sortDescriptor={sortDescriptor}
+        className={styles.container}
+        topContent={topContent}
+        topContentPlacement="outside"
+        onSelectionChange={setSelectedKeys}
+        onSortChange={setSortDescriptor}
+      >
+        <TableHeader columns={headerColumns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" ? "center" : "start"}
+              allowsSorting={column.sortable}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody emptyContent={"No users found"} items={sortedItems}>
+          {(item) => (
+            <TableRow key={item.id}>
+              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      {
+        <Modal size="4xl" isOpen={viewOpen} onOpenChange={() => setViewOpen(false)}>
+          <ModalContent>
+            <iframe
+              src="https://certifier-production-storage.s3.eu-west-1.amazonaws.com/a36efe5c-3957-45d6-876b-f2bccdea5966/pdf-files/8561f0dc-fbe5-43ef-bdb9-3d23791e659e.pdf"
+              frameBorder="0"
+              scrolling="auto"
+              height="600px"
+              width="100%"
+            ></iframe>
+          </ModalContent>
+        </Modal>
+
+      }
     </DefaultLayout>
   );
 }

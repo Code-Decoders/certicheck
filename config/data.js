@@ -3,8 +3,7 @@ const columns = [
   {name: "ID", uid: "id", sortable: true},
   {name: "NAME", uid: "name", sortable: true},
   {name: "AGE", uid: "age", sortable: true},
-  {name: "ROLE", uid: "role", sortable: true},
-  {name: "TEAM", uid: "team"},
+  {name: "TYPE", uid: "type", sortable: true},
   {name: "EMAIL", uid: "email"},
   {name: "STATUS", uid: "status", sortable: true},
   {name: "ACTIONS", uid: "actions"},
@@ -19,7 +18,7 @@ const users = [
   {
     id: 1,
     name: "Tony Reichert",
-    role: "Domicle",
+    type: "Domicle",
     status: "Verified",
     age: "29",
     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
@@ -28,7 +27,7 @@ const users = [
   {
     id: 2,
     name: "Zoey Lang",
-    role: "Caste",
+    type: "Caste",
     status: "Unverified",
     age: "25",
     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
@@ -37,7 +36,7 @@ const users = [
   {
     id: 3,
     name: "Jane Fisher",
-    role: "Domicle",
+    type: "Domicle",
     status: "Verified",
     age: "22",
     avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
