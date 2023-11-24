@@ -52,12 +52,12 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar maxWidth="xl" position="sticky" height={"108px"}>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">CertiCheck</p>
+            <Logo size={80}/>
+            <p className="text-inherit" style={{fontSize: "30px"}}>CertiCheck</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
@@ -68,6 +68,7 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
+          <Button color="default">Logout</Button>
         </NavbarItem>
       </NavbarContent>
 

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sidebar {
+    flex-direction: column;
+    padding: 0px 40px;
+}
+
+.avatar {
+    width: 230px;
+    height: 230px;
+    margin-bottom: 40px;
+}
+
