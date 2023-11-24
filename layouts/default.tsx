@@ -12,7 +12,7 @@ export default function DefaultLayout({
     <div className="relative flex flex-col h-screen">
       <Head />
       <Navbar />
-      <div className="flex">
+      <div className="flex justify-center w-full">
         <Sidebar />
         <main className="container px-6">{children}</main>
       </div>

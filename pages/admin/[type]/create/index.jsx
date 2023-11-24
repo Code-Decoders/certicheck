@@ -13,7 +13,7 @@ const CreateDesign = () => {
       <Card style={{ marginBottom: "20px" }}>
         <CardBody>
           <div className={styles.header}>
-            <h1>{type.toUpperCase()} / Create Certificate</h1>
+            <h1>{type && type.toUpperCase()} / Create Certificate</h1>
             <div className={styles.updateRow}>
               <Button color='primary' size='md'>Save</Button>
             </div>

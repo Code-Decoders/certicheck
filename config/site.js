@@ -1,7 +1,7 @@
 export const siteConfig = {
 	name: "CertiCheck",
 	description: "Tailored for Government Organization, Educations Instutions for Certificate",
-	navItems: [
+	navAdminItems: [
 		{
 			label: "Dashboard",
 			href: "/admin/",
@@ -11,7 +11,9 @@ export const siteConfig = {
 			href: "/admin/certificates",
 		},
 	],
-	navMenuItems: [
+	navItems: [
+	],
+	navMenuAdminItems: [
 		{
 			label: "Dashboard",
 			href: "/admin/",
@@ -19,6 +21,16 @@ export const siteConfig = {
 		{
 			label: "Certificates",
 			href: "/admin/certificates",
+		},
+		{
+			label: "Logout",
+			href: "/logout",
+		},
+	],
+	navMenuItems: [
+		{
+			label: "Home",
+			href: "/",
 		},
 		{
 			label: "Logout",
