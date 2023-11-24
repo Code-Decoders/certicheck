@@ -4,21 +4,21 @@ export const siteConfig = {
 	navItems: [
 		{
 			label: "Dashboard",
-			href: "/",
+			href: "/admin/",
 		},
 		{
 			label: "Certificates",
-			href: "/certificates",
+			href: "/admin/certificates",
 		},
 	],
 	navMenuItems: [
 		{
 			label: "Dashboard",
-			href: "/",
+			href: "/admin/",
 		},
 		{
 			label: "Certificates",
-			href: "/certificates",
+			href: "/admin/certificates",
 		},
 		{
 			label: "Logout",
