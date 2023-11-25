@@ -37,6 +37,20 @@ const SupabaseDatabase = {
 
     return data;
   },
+
+  async getAllCertificates() {
+    if (!this.client) {
+      throw new Error("Supabase client is not initialized.");
+    }
+
+    const { data, error } = await this.client.from("certificates").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  },
 };
 
 export default SupabaseDatabase;
