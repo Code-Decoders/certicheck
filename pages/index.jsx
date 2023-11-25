@@ -5,8 +5,8 @@ import {
   VerticalDotsIcon,
 } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import React from "react";
-import { columns, statusOptions, users } from "@/config/data";
+import React, { useEffect, useState } from "react";
+import { columns, statusOptions } from "@/config/data";
 import {
   Button,
   Chip,
@@ -30,6 +30,8 @@ import {
 
 import styles from '@/styles/Home.module.css'
 import { useRouter } from "next/router";
+import SupabaseDatabase from "@/services/supabaseDatabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const INITIAL_VISIBLE_COLUMNS = ["id", "name", "type", "email", "actions"];
 
@@ -51,7 +53,25 @@ export default function IndexPage() {
   });
   const [page, setPage] = React.useState(1);
   const [viewOpen, setViewOpen] = React.useState(false)
+
+  const [certificates, setCerttificates] = useState([])
   const router = useRouter()
+
+  const supabase = createClientComponentClient();
+
+
+  const getData = async () => {
+    SupabaseDatabase.init(supabase);
+
+    const data = await SupabaseDatabase.getAllCertificates()
+
+    setCerttificates(data)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -62,7 +82,7 @@ export default function IndexPage() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...certificates];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -76,7 +96,7 @@ export default function IndexPage() {
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [certificates, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -221,7 +241,7 @@ export default function IndexPage() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {users.length} Cerificates</span>
+          <span className="text-default-400 text-small">Total {certificates.length} Cerificates</span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
@@ -241,7 +261,7 @@ export default function IndexPage() {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    certificates.length,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -297,7 +317,7 @@ export default function IndexPage() {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
+        <TableBody emptyContent={"No certificates found"} items={sortedItems}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

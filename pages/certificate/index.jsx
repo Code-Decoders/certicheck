@@ -33,6 +33,7 @@ const Certificate = () => {
     const supabase = createClientComponentClient();
     const [certificate, setCerttificate] = useState()
     const [loading, setLoading] = useState(true)
+    
 
 
     const getData = async () => {
