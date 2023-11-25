@@ -67,7 +67,7 @@ const CreateDesign = () => {
       </Card>
       <Card>
         <CardBody>
-          <div className="flex w-full gap-x-5">
+          <div className="flex w-full gap-5 max-sm:flex-col">
             <div className="flex-1">
               <Input
                 isRequired
