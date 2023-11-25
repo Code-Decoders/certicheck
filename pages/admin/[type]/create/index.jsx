@@ -41,8 +41,11 @@ const CreateDesign = () => {
       email,
       phone: mobile,
       aadhar,
+      status: "approved",
       electric_bill: electric,
       driving_license: driving,
+      address,
+      pincode,
       type,
     });
 
@@ -50,7 +53,25 @@ const CreateDesign = () => {
 
     alert("Certificate Created Successfully");
   };
-
+  
+  
+  const rejectCertificate = async () => {
+    SupabaseDatabase.init(supabase);
+    const data = await SupabaseDatabase.createCertificate({
+      name,
+      email,
+      phone: mobile,
+      aadhar,
+      electric_bill: electric,
+      driving_license: driving,
+      address,
+      pincode,
+      status: "reject",
+      type,
+    });
+    alert("Certificate Created Successfully");
+  }
+  
   useEffect(() => {
     console.log(file);
   }, [file]);
@@ -64,6 +85,9 @@ const CreateDesign = () => {
             <div className={styles.updateRow}>
               <Button color="primary" size="md" onClick={createCertificate}>
                 Approve
+              </Button>
+              <Button color="danger" size="md" onClick={rejectCertificate}>
+                Reject
               </Button>
             </div>
           </div>
