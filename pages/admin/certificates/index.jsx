@@ -144,7 +144,7 @@ export default function IndexPage() {
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <Button className="bg-transparent w-30" onClick={() => { setViewOpen(true) }}>
+            <Button className="bg-transparent w-30" onClick={() => { router.push(`/certificate?id=${user.id}`) }}>
               <EyeIcon />
             </Button>
           </div>
