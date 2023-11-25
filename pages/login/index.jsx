@@ -33,11 +33,13 @@ export default function LoginPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  async function signInWIthEmail() {
+  async function signInWithEmail() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+
+    window.location.href = "/admin";
   }
 
   const sendOtp = async () => {
@@ -403,7 +405,7 @@ export default function LoginPage() {
                     }}
                   />
                   <div className="flex gap-2 justify-end">
-                    <Button fullWidth color="primary">
+                    <Button fullWidth color="primary" onClick={signInWithEmail}>
                       LogIn
                     </Button>
                   </div>
