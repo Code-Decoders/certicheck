@@ -15,6 +15,7 @@ export const Head = () => {
 				name="viewport"
 			/>
 			<link href="/favicon.ico" rel="icon" />
+
 		</NextHead>
 	);
 };

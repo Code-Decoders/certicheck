@@ -1,0 +1,27 @@
+{
+    "name": "Certicheck App",
+    "short_name": "Certicheck",
+    "icons": [
+      {
+        "src": "/icons/certificate.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/icons/certificate.png",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/certificate.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "start_url": "/login",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
