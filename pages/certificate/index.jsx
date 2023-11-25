@@ -57,8 +57,8 @@ const Certificate = () => {
     else
         return (
             <div>
-                <Button onClick={() => { setViewOpen(true) }} className='absolute z-2 bottom-0 right-0 m-10 rounded-[50%] p-0 w-[200px] h-[200px]'>
-                    <VerifyIcon style={{ scale: "4" }} />
+                <Button onClick={() => { setViewOpen(true) }} className='absolute z-2 bottom-0 right-0 m-10 rounded-[50%] p-0 w-[200px] h-[200px] max-sm:w-20 max-sm:h-20'>
+                    <VerifyIcon style={{ scale: "4" }} className="max-sm:scale-50"/>
                 </Button>
                 <iframe
                     src={`https://xgxiyspoqvchlcrlizzi.supabase.co/storage/v1/object/public/Certicheck/${certificate['file_id']}.pdf`}
