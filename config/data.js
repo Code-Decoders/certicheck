@@ -7,6 +7,7 @@ const columns = [
   {name: "PHONE", uid: "phone", sortable: true},
   {name: "TYPE", uid: "type", sortable: true},
   {name: "ISSUED AT", uid: "created_at", sortable: true},
+  {name: "STATUS", uid: "status", sortable: true},
   {name: "ACTIONS", uid: "actions"},
 ];
 
@@ -16,4 +17,9 @@ const statusOptions = [
   {name: "Non-creamy", uid: ""},
 ];
 
-export {columns, statusOptions};
+const typeOptions = [
+  {name: "approved", uid: "success"},
+  {name: "reject", uid: "danger"}
+]
+
+export {columns, statusOptions, typeOptions};

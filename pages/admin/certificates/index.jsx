@@ -33,20 +33,29 @@ import styles from '@/styles/Home.module.css'
 import { useRouter } from "next/router";
 import SupabaseDatabase from "@/services/supabaseDatabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { typeOptions } from "../../../config/data";
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "email", "aadhar", "type", "created_at", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "email", "aadhar", "type", "status", "created_at", "actions"];
 
-const statusColorMap = {
-  Domicle: "success",
-  Caste: "danger",
+const typeColorMap = {
+  Domicle: "primary",
+  Caste: "warning",
   "Non-Creamy": "secondary"
 };
+
+const statusColorMap = {
+  approved: "success",
+  reject: "danger"
+}
+
+
 
 export default function IndexPage() {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState("all");
+  const [typeFilter, setTypeFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "id",
@@ -98,6 +107,12 @@ export default function IndexPage() {
       );
     }
 
+    if (typeFilter !== "all" && Array.from(typeFilter).length !== typeOptions.length) {
+      filteredUsers = filteredUsers.filter((user) =>
+        Array.from(typeFilter).includes(user.type),
+      );
+    }
+
     return filteredUsers;
   }, [certificates, filterValue, statusFilter]);
 
@@ -133,7 +148,13 @@ export default function IndexPage() {
         );
       case "type":
         return (
-          <Chip className="capitalize" color={statusColorMap[user.type]} size="sm" variant="flat">
+          <Chip className="capitalize" color={typeColorMap[user.type]} size="sm" variant="flat">
+            {cellValue}
+          </Chip>
+        );
+      case "status":
+        return (
+          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
             {cellValue}
           </Chip>
         );
@@ -202,6 +223,27 @@ export default function IndexPage() {
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                  Type
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                disallowEmptySelection
+                aria-label="Table Columns"
+                closeOnSelect={false}
+                selectedKeys={typeFilter}
+                selectionMode="multiple"
+                onSelectionChange={setTypeFilter}
+              >
+                {statusOptions.map((status) => (
+                  <DropdownItem key={status.name} className="capitalize">
+                    {status.name}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+            <Dropdown>
+              <DropdownTrigger className="hidden sm:flex">
+                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
                   Status
                 </Button>
               </DropdownTrigger>
@@ -213,7 +255,7 @@ export default function IndexPage() {
                 selectionMode="multiple"
                 onSelectionChange={setStatusFilter}
               >
-                {statusOptions.map((status) => (
+                {typeOptions.map((status) => (
                   <DropdownItem key={status.name} className="capitalize">
                     {status.name}
                   </DropdownItem>
