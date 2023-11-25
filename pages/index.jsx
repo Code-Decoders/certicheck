@@ -114,11 +114,15 @@ export default function IndexPage() {
             {cellValue}
           </Chip>
         );
+      case "created_at":
+        return (
+          <div>{new Date(cellValue).toDateString()}</div>
+        );
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <Button className="bg-transparent w-30" onClick={() => {setViewOpen(true)}}>
-              <EyeIcon/>
+            <Button className="bg-transparent w-30" onClick={() => { setViewOpen(true) }}>
+              <EyeIcon />
             </Button>
           </div>
         );
