@@ -1,58 +1,59 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract CertificateNFT is ERC721URIStorage, Ownable {
+contract MyToken is ERC721, ERC721URIStorage, Ownable {
+    using Strings for uint256; 
 
-    uint256 private _tokenIds;
-    string private baseURI;
+    uint256 public nextTokenId;
+    string private _baseTokenURI;
 
-    mapping(string => uint256) private pdfIdToTokenId;
-    constructor(string memory baseURI_) ERC721("CertificateNFT", "CERT" ) Ownable(msg.sender) {
-        baseURI = baseURI_;
-    }
-
-    function setBaseURI(string memory baseURI_) external onlyOwner {
-        baseURI = baseURI_;
-    }
-
-    function mintCertificate(address recipient, string memory pdfId)
-        public
-        onlyOwner
-        returns (uint256)
+    constructor(address initialOwner)
+        ERC721("CertiCheck", "CERT")
+        Ownable(initialOwner)
     {
-        require(pdfIdToTokenId[pdfId] == 0, "Certificate already minted");
-
-        _tokenIds++;
-        uint256 newItemId = _tokenIds;
-
-        _mint(recipient, newItemId);
-        _setTokenURI(newItemId, _constructTokenURI(pdfId));
-
-        pdfIdToTokenId[pdfId] = newItemId;
-
-        return newItemId;
+         setBaseURI("https://certicheckapp.netlify.app/api/metadata/");
     }
 
-    function _constructTokenURI(string memory pdfId) private view returns (string memory) {
-        return string(abi.encodePacked(baseURI, pdfId));
+    function setBaseURI(string memory baseURI_) public  {
+        _baseTokenURI = baseURI_;
     }
 
-    function verifyCertificateByPdfId(string memory pdfId, address owner) public view returns (bool isOwner) {
-        uint256 tokenId = pdfIdToTokenId[pdfId];
-        require(tokenId != 0, "Certificate not found");
-        isOwner = ownerOf(tokenId) == owner;
+    function baseURI() public view returns (string memory) {
+        return _baseTokenURI;
     }
 
-    function getTokenIdFromPdfId(string memory pdfId) public view returns (uint256 tokenId) {
-        tokenId = pdfIdToTokenId[pdfId];
-        require(tokenId != 0, "Certificate not found");
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        string memory base = baseURI();
+        return bytes(base).length > 0 ? string(abi.encodePacked(base, tokenId.toString())) : "";
     }
 
-    function _baseURI() internal view override returns (string memory) {
-        return baseURI;
+     function contractURI() public view returns (string memory) {
+        return string(abi.encodePacked(baseURI(), "contract-metadata.json"));
+    }
+
+    function safeMint(address to, string memory uri) public onlyOwner {
+        uint256 tokenId = nextTokenId++;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
