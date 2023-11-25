@@ -19,15 +19,19 @@ const CreateDesign = () => {
   const [email, setEmail] = React.useState("");
   const [mobile, setMobile] = React.useState("");
   const [aadhar, setAadhar] = React.useState("");
+  const [electric, setElectric] = React.useState("");
+  const [driving, setDriving] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [pincode, setPincode] = React.useState("");
 
   const createCertificate = async () => {
-    SupabaseUploader.init(supabase);
+    // SupabaseUploader.init(supabase);
     SupabaseDatabase.init(supabase);
 
-    const pdfName = uuidv4();
-    const imageName = uuidv4();
+    // const pdfName = uuidv4();
+    // const imageName = uuidv4();
 
-    await SupabaseUploader.upload(pdfName + ".pdf", file);
+    // await SupabaseUploader.upload(pdfName + ".pdf", file);
 
     const latestTokenId = await ethersService.getLatestTokenId();
 
@@ -37,8 +41,8 @@ const CreateDesign = () => {
       email,
       phone: mobile,
       aadhar,
-      file_id: pdfName,
-      thumbnail_id: imageName,
+      electric_bill: electric,
+      driving_license: driving,
       type,
     });
 
@@ -59,7 +63,7 @@ const CreateDesign = () => {
             <h1>{type && type.toUpperCase()} / Create Certificate</h1>
             <div className={styles.updateRow}>
               <Button color="primary" size="md" onClick={createCertificate}>
-                Save
+                Approve
               </Button>
             </div>
           </div>
@@ -68,56 +72,89 @@ const CreateDesign = () => {
       <Card>
         <CardBody>
           <div className="flex w-full gap-5 max-sm:flex-col">
-            <div className="flex-1">
-              <Input
-                isRequired
-                type="name"
-                label="Name"
-                defaultValue="Junior"
-                className="max-w-xl mb-4"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-              <Input
-                isRequired
-                type="email"
-                label="Email"
-                defaultValue="junior@nextui.org"
-                className="max-w-xl mb-4"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              <Input
-                isRequired
-                type="mobile"
-                label="Mobile No."
-                className="max-w-xl mb-4"
-                onChange={(e) => {
-                  setMobile(e.target.value);
-                }}
-              />
-              <Input
-                isRequired
-                type="aadhar"
-                label="Aadhar Number"
-                defaultValue="0000 0000 0000"
-                className="max-w-xl"
-                onChange={(e) => {
-                  setAadhar(e.target.value);
-                }}
-              />
-            </div>
-            <div className="flex-1">
-              <input
-                type="file"
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                }}
-                className="bg-default-100 rounded-medium outline-none h-14 px-3 py-3 is-filled"
-              />
-            </div>
+            <Input
+              isRequired
+              type="name"
+              label="Name"
+              defaultValue="Junior"
+              className="max-w-xl mb-4"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+            <Input
+              isRequired
+              type="email"
+              label="Email"
+              defaultValue="junior@nextui.org"
+              className="max-w-xl mb-4"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div className="flex w-full gap-5 max-sm:flex-col">
+            <Input
+              isRequired
+              type="mobile"
+              label="Mobile No."
+              className="max-w-xl mb-4"
+              onChange={(e) => {
+                setMobile(e.target.value);
+              }}
+            />
+            <Input
+              isRequired
+              type="aadhar"
+              label="Aadhar Number"
+              defaultValue="0000 0000 0000"
+              className="max-w-xl"
+              onChange={(e) => {
+                setAadhar(e.target.value);
+              }}
+            />
+          </div>
+          <div className="flex w-full gap-5 max-sm:flex-col">
+            <Input
+              isRequired
+              type="electric_bill"
+              label="Electric Bill"
+              className="max-w-xl mb-4"
+              onChange={(e) => {
+                setElectric(e.target.value);
+              }}
+            />
+            <Input
+              isRequired
+              type="driving_license"
+              label="Driving License"
+              defaultValue="0000 0000 0000"
+              className="max-w-xl"
+              onChange={(e) => {
+                setDriving(e.target.value);
+              }}
+            />
+          </div>
+          <div className="flex w-full gap-5 max-sm:flex-col">
+            <Input
+              isRequired
+              type="address"
+              label="Address"
+              className="max-w-xl mb-4"
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+            />
+            <Input
+              isRequired
+              type="pincode"
+              label="Pin Code"
+              defaultValue="0000000"
+              className="max-w-xl"
+              onChange={(e) => {
+                setPincode(e.target.value);
+              }}
+            />
           </div>
         </CardBody>
       </Card>
@@ -126,3 +163,8 @@ const CreateDesign = () => {
 };
 
 export default CreateDesign;
+
+
+// Driving License
+// Aadhar Card
+// Birth Certificate

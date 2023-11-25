@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     description: json.type + " Certificate",
     // TODO: Add image URL
     image:
-      "https://madhuriesingh.com/wp-content/uploads/2018/02/Domicile-Certificate.jpg",
+      "https://certicheck.netlify.app/icons/certificate.png",
     attributes: Object.keys(json).map((key) => {
       return {
         trait_type: key,

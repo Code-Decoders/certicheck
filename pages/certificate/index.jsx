@@ -61,7 +61,7 @@ const Certificate = () => {
                     <VerifyIcon style={{ scale: "4" }} className="max-sm:scale-50"/>
                 </Button>
                 <iframe
-                    src={`https://xgxiyspoqvchlcrlizzi.supabase.co/storage/v1/object/public/Certicheck/${certificate['file_id']}.pdf`}
+                    src={`/icons/certificate.png`}
                     frameBorder="0"
                     scrolling="auto"
                     className='w-[100vw] h-[100vh]'
@@ -73,7 +73,11 @@ const Certificate = () => {
                             <ModalBody>
                                 <div className='text-xl text-500 mb-1'>{certificate.name}</div>
                                 <div className='text-xl text-500 mb-1'>Aadhar Number: {certificate.aadhar}</div>
+                                <div className='text-xl text-500 mb-1'>Driving License: {certificate.driving_license}</div>
+                                <div className='text-xl text-500 mb-1'>Electric Bill: {certificate.electric_bil}</div>
                                 <div className='text-xl text-500 mb-1'>Phone: {certificate.phone}</div>
+                                <div className='text-xl text-500 mb-1'>Address: {certificate.address}</div>
+                                <div className='text-xl text-500 mb-1'>Pincode: {certificate.pincode}</div>
                                 <div className='text-xl text-500 mb-1'>Email Id: {certificate.email}</div>
                                 <div className='text-xl text-500 mb-1'>Issued At: {new Date(certificate.created_at).toDateString()}</div>
                             </ModalBody>
