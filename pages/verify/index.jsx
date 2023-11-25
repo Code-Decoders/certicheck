@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DefaultLayout from "@/layouts/default";
 import { SearchIcon } from "@/components/icons"
 import { Input } from '@nextui-org/react';
+import { useRouter } from 'next/router';
 
 const VerifyPage = () => {
+    const [query, setQuery] = useState("")
+    const router = useRouter()
     return (
         <DefaultLayout>
             <div className='flex w-full justify-center items-center' style={{ height: "calc(100vh - 216px)" }}>
@@ -15,7 +18,7 @@ const VerifyPage = () => {
                         label: "text-black/50 dark:text-white/90",
                         input: [
                             "bg-transparent",
-                            "text-black/90 dark:text-white/90",
+                            // "text-black/90 dark:text-white/90",
                             "placeholder:text-default-700/50 dark:placeholder:text-white/60",
                         ],
                         innerWrapper: "bg-transparent",
@@ -34,6 +37,12 @@ const VerifyPage = () => {
                     }}
                     className='w-full'
                     placeholder="Type to search..."
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            router.push(`/certificate?id=${query}`)
+                        }
+                    }}
                     startContent={
                         <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
                     }

@@ -16,7 +16,7 @@ const Sidebar = () => {
         <p className='text-base text-500 leading-6 text-end mb-5'>Mobile: +91 70410 14595</p>
         {
             (router.pathname.includes("admin") ? siteConfig.navAdminItems : siteConfig.navItems).map(val => {
-                return <Button onClick={() => router.push(val.href)} key={val.label} color='primary' variant='flat' className='mb-2'>{val.label}</Button>
+                return <Button onClick={() => router.push(val.href)} key={val.label} color='primary' variant={router.pathname === val.href ? "solid" :'flat'} className='mb-2'>{val.label}</Button>
             })
         }
     </div>

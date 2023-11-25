@@ -4,7 +4,7 @@ export const siteConfig = {
 	navAdminItems: [
 		{
 			label: "Dashboard",
-			href: "/admin/",
+			href: "/admin",
 		},
 		{
 			label: "Certificates",
@@ -16,7 +16,7 @@ export const siteConfig = {
 	navMenuAdminItems: [
 		{
 			label: "Dashboard",
-			href: "/admin/",
+			href: "/admin",
 		},
 		{
 			label: "Certificates",
@@ -30,7 +30,7 @@ export const siteConfig = {
 	navMenuItems: [
 		{
 			label: "Home",
-			href: "/",
+			href: "",
 		},
 		{
 			label: "Logout",
