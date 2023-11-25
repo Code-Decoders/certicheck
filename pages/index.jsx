@@ -66,7 +66,6 @@ export default function IndexPage() {
     const data = await SupabaseDatabase.getAllCertificates()
 
     setCerttificates(data)
-    setLoading(false)
   }
 
   useEffect(() => {

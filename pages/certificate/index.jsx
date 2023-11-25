@@ -58,7 +58,7 @@ const Certificate = () => {
       "The answers and proof submitted by the applicant in the questionnaire.",
       "Date of Birth, Matriculation Pass Certificate, Birth Certificate",
       "Affidavit forfeiting the domicile right of HARYANA State",
-      "Inquiry report of - CHANDKHEDA - Police Station Outward Number -678/2019 date : -04/02/2019",
+      "Inquiry report of - CHANDKHEDA - Police Station Outward Number -678/2019",
     ],
     place: "Ahmedabad",
     signDate: "",
@@ -156,7 +156,14 @@ const Certificate = () => {
                   <div className="text-xl text-500 mb-1">
                     Email Id: {certificate.email}
                   </div>
-                  <div className="text-xl text-500 mb-1">
+                  <div
+                    className={
+                      "text-xl text-500 mb-1 " +
+                        (new Date().getFullYear() -
+                          new Date(certificate.created_at).getFullYear()) >
+                      2
+                    }
+                  >
                     Issued At: {new Date(certificate.created_at).toDateString()}
                   </div>
                 </ModalBody>
