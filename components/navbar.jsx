@@ -28,8 +28,10 @@ import {
 } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
+  const router = useRouter()
   const searchInput = (
     <Input
       aria-label="Search"
@@ -79,7 +81,7 @@ export const Navbar = () => {
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
+          {(router.pathname.includes("admin") ? siteConfig.navMenuAdminItems : siteConfig.navMenuItems).map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
