@@ -41,6 +41,14 @@ export default function LoginPage() {
 
     window.location.href = "/admin";
   }
+  async function signInWithEmailInstitute() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    window.location.href = "/verify";
+  }
 
   const sendOtp = async () => {
     console.log(mobileNumber);
@@ -426,7 +434,11 @@ export default function LoginPage() {
                     type="password"
                   />
                   <div className="flex gap-2 justify-end">
-                    <Button fullWidth color="primary">
+                    <Button
+                      fullWidth
+                      color="primary"
+                      onClick={signInWithEmailInstitute}
+                    >
                       Login
                     </Button>
                   </div>
